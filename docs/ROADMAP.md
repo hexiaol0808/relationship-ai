@@ -27,13 +27,21 @@
 
 **Phase 2 全部完成，可以进入 Phase 3。**
 
-## Phase 3 — 核心功能开发（预计 2-3 天）
-- 问卷交互页面（15 题，移动端优先，支持 ABCDE + F 自由输入）
-- 提交逻辑：写入 Supabase，生成 `report_id`
-- 调用 AI 生成层生成报告，存入 `full_report` / `summary` / `model_used`
-- 报告展示页（专属链接访问）
-- 一键生成分享图功能
-- 可选邮箱留资入口 + "邀请 TA 也来测"入口
+## Phase 3 — 核心功能开发（预计 2-3 天）【已完成，2026-07-19】
+- [x] 问卷交互页面（15 题，移动端优先，支持 ABCDE + F 自由输入）→ app/questionnaire/，题目数据源 lib/questions.ts
+- [x] 提交逻辑：写入 Supabase，生成 `report_id` → app/api/generate-report/route.ts，report_id 冲突自动重试
+- [x] 调用 AI 生成层生成报告，存入 `full_report` / `summary` / `model_used` → lib/report-prompt.ts（内嵌完整 system prompt）+ jsonMode
+- [x] 报告展示页（专属链接访问）→ app/report/[id]/page.tsx，10 模块完整渲染
+- [x] 一键生成分享图功能 → app/report/[id]/opengraph-image.tsx（next/og 原生方案）
+- [x] 可选邮箱留资入口 + "邀请 TA 也来测"入口 → 问卷最后一屏 + 报告页底部
+
+**验证方式**：本地用 Playwright（系统 Chrome，headless）实际点击走完全部 15 题（含选二排序、CP3 两步交互、F 自由文本路径），确认"提交"按钮正确解锁、全程 0 个 console error；另用 curl 直接调 `/api/generate-report` 提交一组完整答案触发**真实 OpenAI 调用**，产出合法 10 模块 JSON，Module 10 的 `g1_alignment` 字段存在且取值合法（"互补"）——这是 Phase 1.2 压测中唯一发现过会被漏写的字段，此次验证通过。分享图路由确认返回合法 1200×630 PNG。代码已推送并在 Vercel 生产环境验证 `/`、`/questionnaire`、`/report/[id]`、分享图路由均可访问。
+
+**踩坑记录**：本机 `npx playwright install chromium` 因网络问题（同样疑似跟 VPN 环境有关）反复卡死在下载阶段，改为让 Playwright 直接复用系统已安装的 Google Chrome（`channel: "chrome"`）绕过下载，才跑通浏览器端自动化验证。
+
+**未覆盖**：没有在真实移动设备上走查（浏览器自动化用的是桌面视口），移动端体验细节留给 Phase 4。
+
+**Phase 3 全部完成，可以进入 Phase 4。**
 
 ## Phase 4 — 测试与打磨（预计 2-3 天）
 - 找 5-10 个真实用户/朋友完整走一遍流程
