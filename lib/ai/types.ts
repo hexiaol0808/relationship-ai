@@ -1,6 +1,7 @@
 export interface GenerateReportParams {
   systemPrompt: string;
   userPrompt: string;
+  maxTokens?: number;
 }
 
 export interface GenerateReportResult {
