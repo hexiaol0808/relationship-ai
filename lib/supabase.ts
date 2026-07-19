@@ -1,6 +1,6 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
-let client: ReturnType<typeof createClient> | undefined;
+let client: SupabaseClient | undefined;
 
 export function getSupabaseServerClient() {
   if (client) return client;

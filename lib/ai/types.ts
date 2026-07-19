@@ -2,6 +2,8 @@ export interface GenerateReportParams {
   systemPrompt: string;
   userPrompt: string;
   maxTokens?: number;
+  /** Ask the provider to constrain output to valid JSON, when it natively supports doing so. */
+  jsonMode?: boolean;
 }
 
 export interface GenerateReportResult {

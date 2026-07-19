@@ -6,7 +6,7 @@ const MODEL = "gpt-4o";
 export const openaiProvider: AiProvider = {
   name: "openai",
 
-  async generate({ systemPrompt, userPrompt, maxTokens }: GenerateReportParams): Promise<GenerateReportResult> {
+  async generate({ systemPrompt, userPrompt, maxTokens, jsonMode }: GenerateReportParams): Promise<GenerateReportResult> {
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
       throw new Error("OPENAI_API_KEY is not set");
@@ -16,6 +16,7 @@ export const openaiProvider: AiProvider = {
     const response = await client.chat.completions.create({
       model: MODEL,
       max_completion_tokens: maxTokens,
+      response_format: jsonMode ? { type: "json_object" } : undefined,
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt },
