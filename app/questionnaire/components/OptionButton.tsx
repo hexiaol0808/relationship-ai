@@ -16,23 +16,19 @@ export default function OptionButton({ letter, title, body, selected, onClick }:
       data-letter={letter}
       onClick={onClick}
       className={`flex w-full items-start gap-3 rounded-2xl border p-4 text-left transition-colors ${
-        selected
-          ? "border-zinc-900 bg-zinc-100 dark:border-zinc-50 dark:bg-zinc-900"
-          : "border-zinc-200 bg-white hover:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-600"
+        selected ? "border-rose-gold bg-blush/60" : "border-zinc-200 bg-white hover:border-rose-gold/50"
       }`}
     >
       <span
         className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-medium ${
-          selected
-            ? "bg-zinc-900 text-white dark:bg-zinc-50 dark:text-black"
-            : "bg-zinc-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400"
+          selected ? "bg-rose-gold text-white" : "bg-blush text-rose-gold-dark"
         }`}
       >
         {letter}
       </span>
       <span className="flex flex-col gap-1">
-        {title && <span className="font-medium text-zinc-900 dark:text-zinc-50">{title}</span>}
-        <span className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{body}</span>
+        {title && <span className="font-medium text-zinc-800">{title}</span>}
+        <span className="text-sm leading-relaxed text-zinc-600">{body}</span>
       </span>
     </button>
   );

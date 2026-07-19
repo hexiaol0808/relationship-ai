@@ -82,16 +82,16 @@ export default function QuestionnairePage() {
   }
 
   return (
-    <div className="min-h-dvh bg-zinc-50 px-6 py-10 dark:bg-black">
+    <div className="min-h-dvh bg-cream px-6 py-10">
       <div className="mx-auto flex w-full max-w-md flex-col gap-8">
         <div className="flex flex-col gap-2">
-          <div className="h-1.5 w-full overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-blush">
             <div
-              className="h-full rounded-full bg-zinc-900 transition-all dark:bg-zinc-50"
+              className="h-full rounded-full bg-rose-gold transition-all"
               style={{ width: `${((stepIndex + 1) / TOTAL_STEPS) * 100}%` }}
             />
           </div>
-          <p className="text-xs text-zinc-400 dark:text-zinc-600">
+          <p className="text-xs text-zinc-400">
             {isFinalStep ? "最后一步" : `第 ${stepIndex + 1} / ${QUESTIONS.length} 题`}
           </p>
         </div>
@@ -99,10 +99,8 @@ export default function QuestionnairePage() {
         {!isFinalStep && question && key && (
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <h2 className="text-xl font-semibold leading-snug text-zinc-900 dark:text-zinc-50">{question.title}</h2>
-              <p className="whitespace-pre-line text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-                {question.prompt}
-              </p>
+              <h2 className="text-xl font-semibold leading-snug text-zinc-800">{question.title}</h2>
+              <p className="whitespace-pre-line text-sm leading-relaxed text-zinc-600">{question.prompt}</p>
             </div>
             <QuestionRenderer
               key={question.id}
@@ -118,10 +116,8 @@ export default function QuestionnairePage() {
         {isFinalStep && (
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <h2 className="text-xl font-semibold leading-snug text-zinc-900 dark:text-zinc-50">
-                最后一步：留个邮箱（可选）
-              </h2>
-              <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+              <h2 className="text-xl font-semibold leading-snug text-zinc-800">最后一步：留个邮箱（可选）</h2>
+              <p className="text-sm leading-relaxed text-zinc-600">
                 填了邮箱可以在未来找回这份报告，不填也完全没问题，直接点提交就好。
               </p>
             </div>
@@ -130,9 +126,9 @@ export default function QuestionnairePage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com（可选）"
-              className="w-full rounded-2xl border border-zinc-200 bg-white p-4 text-sm text-zinc-900 outline-none focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-50 dark:focus:border-zinc-600"
+              className="w-full rounded-2xl border border-zinc-200 bg-white p-4 text-sm text-zinc-800 outline-none focus:border-rose-gold"
             />
-            {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
+            {error && <p className="text-sm text-red-500">{error}</p>}
           </div>
         )}
 
@@ -141,7 +137,7 @@ export default function QuestionnairePage() {
             type="button"
             disabled={stepIndex === 0}
             onClick={() => setStepIndex((i) => Math.max(0, i - 1))}
-            className="flex h-12 items-center justify-center rounded-full border border-zinc-300 px-6 text-sm font-medium text-zinc-700 disabled:opacity-0 dark:border-zinc-700 dark:text-zinc-300"
+            className="flex h-12 items-center justify-center rounded-full border border-rose-gold/40 px-6 text-sm font-medium text-rose-gold-dark disabled:opacity-0"
           >
             上一题
           </button>
@@ -150,7 +146,7 @@ export default function QuestionnairePage() {
               type="button"
               data-testid="submit-button"
               onClick={handleSubmit}
-              className="flex h-12 flex-1 items-center justify-center rounded-full bg-zinc-900 px-6 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+              className="flex h-12 flex-1 items-center justify-center rounded-full bg-rose-gold px-6 text-sm font-medium text-white shadow-sm transition-colors hover:bg-rose-gold-dark"
             >
               提交，生成我的报告
             </button>
@@ -160,7 +156,7 @@ export default function QuestionnairePage() {
               data-testid="next-button"
               disabled={!canProceed}
               onClick={() => setStepIndex((i) => Math.min(QUESTIONS.length, i + 1))}
-              className="flex h-12 flex-1 items-center justify-center rounded-full bg-zinc-900 px-6 text-sm font-medium text-white transition-colors hover:bg-zinc-700 disabled:cursor-not-allowed disabled:opacity-40 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+              className="flex h-12 flex-1 items-center justify-center rounded-full bg-rose-gold px-6 text-sm font-medium text-white shadow-sm transition-colors hover:bg-rose-gold-dark disabled:cursor-not-allowed disabled:opacity-40"
             >
               下一题
             </button>

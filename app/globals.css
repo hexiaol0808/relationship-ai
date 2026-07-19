@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fff9f7;
+  --foreground: #3f3f46;
 }
 
 @theme inline {
@@ -19,12 +19,7 @@
   --color-rose-gold-dark: #a8677a;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* 全站统一奶油/玫瑰金浅色主题，不跟随系统深色模式切换成黑色 */
 
 body {
   background: var(--background);

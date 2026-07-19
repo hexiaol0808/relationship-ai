@@ -65,14 +65,11 @@ function AccordionItem({
   children: ReactNode;
 }) {
   return (
-    <details
-      open={defaultOpen}
-      className="group rounded-2xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950"
-    >
+    <details open={defaultOpen} className="group rounded-2xl border border-zinc-200 bg-white">
       <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-5 [&::-webkit-details-marker]:hidden">
-        <span className="text-base font-semibold text-zinc-900 dark:text-zinc-50">{title}</span>
+        <span className="text-base font-semibold text-zinc-800">{title}</span>
         <svg
-          className="h-4 w-4 shrink-0 text-zinc-400 transition-transform group-open:rotate-180"
+          className="h-4 w-4 shrink-0 text-rose-gold-dark/60 transition-transform group-open:rotate-180"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -91,7 +88,7 @@ function ModuleBody({ body }: { body: string }) {
   return (
     <div className="flex flex-col gap-3">
       {paragraphs.map((p, i) => (
-        <p key={i} className="text-base leading-loose text-zinc-600 dark:text-zinc-400">
+        <p key={i} className="text-base leading-loose text-zinc-600">
           {p}
         </p>
       ))}
@@ -116,14 +113,11 @@ export default function ReportModules({ modules, answers }: ReportModulesProps) 
           return (
             <AccordionItem key={m.id} title={m.title} defaultOpen={defaultOpen}>
               {m.tensions.length === 0 ? (
-                <p className="text-base leading-loose text-zinc-600 dark:text-zinc-400">{m.body}</p>
+                <p className="text-base leading-loose text-zinc-600">{m.body}</p>
               ) : (
                 <ul className="flex flex-col gap-3">
                   {m.tensions.map((t, i) => (
-                    <li
-                      key={i}
-                      className="rounded-xl bg-zinc-50 p-4 text-base leading-loose text-zinc-700 dark:bg-zinc-900 dark:text-zinc-300"
-                    >
+                    <li key={i} className="rounded-xl bg-blush/40 p-4 text-base leading-loose text-zinc-700">
                       {t.body}
                     </li>
                   ))}
@@ -147,12 +141,12 @@ export default function ReportModules({ modules, answers }: ReportModulesProps) 
                 </span>
               }
             >
-              <p className="text-base leading-loose text-zinc-800 dark:text-zinc-200">{m.insight}</p>
+              <p className="text-base leading-loose text-zinc-800">{m.insight}</p>
               <dl className="flex flex-col gap-4 text-base">
                 {CHANGE_FIELDS.map(([label, field]) => (
                   <div key={field}>
-                    <dt className="text-sm font-medium text-zinc-500 dark:text-zinc-400">{label}</dt>
-                    <dd className="mt-1 leading-loose text-zinc-700 dark:text-zinc-300">{m[field]}</dd>
+                    <dt className="text-sm font-medium text-rose-gold-dark">{label}</dt>
+                    <dd className="mt-1 leading-loose text-zinc-700">{m[field]}</dd>
                   </div>
                 ))}
               </dl>

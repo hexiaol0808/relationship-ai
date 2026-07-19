@@ -32,11 +32,11 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
   const modules = [...report.full_report.modules].sort((a, b) => a.id - b.id);
 
   return (
-    <div className="min-h-dvh bg-zinc-50 px-6 py-10 dark:bg-black">
+    <div className="min-h-dvh bg-cream px-6 py-10">
       <div className="mx-auto flex w-full max-w-md flex-col gap-6">
-        <div className="flex flex-col gap-3 rounded-2xl bg-zinc-900 p-6 text-center dark:bg-white">
-          <p className="text-xs uppercase tracking-wide text-zinc-400 dark:text-zinc-500">你的关系操作系统说明书</p>
-          <p className="text-lg font-medium leading-relaxed text-white dark:text-black">{report.summary}</p>
+        <div className="flex flex-col gap-3 rounded-2xl bg-gradient-to-br from-rose-gold to-rose-gold-dark p-6 text-center shadow-sm">
+          <p className="text-xs uppercase tracking-wide text-white/70">你的关系操作系统说明书</p>
+          <p className="text-lg font-medium leading-relaxed text-white">{report.summary}</p>
         </div>
 
         <ReportModules modules={modules} answers={report.answers} />
@@ -46,14 +46,14 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
             href={`/report/${report.report_id}/opengraph-image`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-12 items-center justify-center rounded-full bg-zinc-900 px-6 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+            className="flex h-12 items-center justify-center rounded-full bg-rose-gold px-6 text-sm font-medium text-white shadow-sm transition-colors hover:bg-rose-gold-dark"
           >
             一键生成分享图
           </a>
-          <p className="text-center text-xs text-zinc-400 dark:text-zinc-600">长按图片保存到相册</p>
+          <p className="text-center text-xs text-zinc-400">长按图片保存到相册</p>
           <Link
             href="/questionnaire"
-            className="flex h-12 items-center justify-center rounded-full border border-zinc-300 px-6 text-sm font-medium text-zinc-700 dark:border-zinc-700 dark:text-zinc-300"
+            className="flex h-12 items-center justify-center rounded-full border border-rose-gold/40 px-6 text-sm font-medium text-rose-gold-dark"
           >
             邀请 TA 也来测
           </Link>

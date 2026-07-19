@@ -45,9 +45,7 @@ export default function BestWorstTwoStep({
   if (!pendingFirst) {
     return (
       <div className="flex flex-col gap-3">
-        <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-          {question.step1Label ?? "请选择最符合的一项："}
-        </p>
+        <p className="text-sm font-medium text-rose-gold-dark">{question.step1Label ?? "请选择最符合的一项："}</p>
         {step1Choices.map((opt) => (
           <OptionButton
             key={opt.letter}
@@ -68,12 +66,12 @@ export default function BestWorstTwoStep({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between rounded-2xl bg-zinc-100 p-4 dark:bg-zinc-900">
-        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-xs font-medium text-white dark:bg-zinc-50 dark:text-black">
+      <div className="flex items-center justify-between rounded-2xl bg-blush/60 p-4">
+        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-gold text-xs font-medium text-white">
           {pendingFirst}
         </span>
-        <span className="flex-1 px-3 text-sm text-zinc-600 dark:text-zinc-400">第一步已选</span>
-        <button type="button" onClick={reset} className="text-xs text-zinc-500 underline dark:text-zinc-400">
+        <span className="flex-1 px-3 text-sm text-zinc-600">第一步已选</span>
+        <button type="button" onClick={reset} className="text-xs text-rose-gold-dark underline">
           重新选择
         </button>
       </div>
@@ -83,10 +81,10 @@ export default function BestWorstTwoStep({
       )}
 
       <div className="flex flex-col gap-1">
-        <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+        <p className="text-sm font-medium text-rose-gold-dark">
           {question.step2Label ?? "在剩下的选项里，哪一项是你相对更能适应的？"}
         </p>
-        {question.step2Hint && <p className="text-xs text-zinc-400 dark:text-zinc-600">{question.step2Hint}</p>}
+        {question.step2Hint && <p className="text-xs text-zinc-400">{question.step2Hint}</p>}
       </div>
       <div className="flex flex-col gap-3">
         {secondChoices.map((opt) => (

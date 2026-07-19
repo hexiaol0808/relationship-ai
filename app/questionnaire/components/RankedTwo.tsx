@@ -39,7 +39,7 @@ export default function RankedTwo({ question, answer, fText, onAnswerChange, onF
   if (!pendingFirst) {
     return (
       <div className="flex flex-col gap-3">
-        <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">{question.firstLabel ?? "第一优先"}</p>
+        <p className="text-sm font-medium text-rose-gold-dark">{question.firstLabel ?? "第一优先"}</p>
         {choices.map((opt) => (
           <OptionButton
             key={opt.letter}
@@ -60,16 +60,16 @@ export default function RankedTwo({ question, answer, fText, onAnswerChange, onF
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between rounded-2xl bg-zinc-100 p-4 dark:bg-zinc-900">
+      <div className="flex items-center justify-between rounded-2xl bg-blush/60 p-4">
         <div className="flex items-center gap-3">
-          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-xs font-medium text-white dark:bg-zinc-50 dark:text-black">
+          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-gold text-xs font-medium text-white">
             {pendingFirst}
           </span>
-          <span className="text-sm font-medium text-zinc-900 dark:text-zinc-50">
+          <span className="text-sm font-medium text-zinc-800">
             {("title" in (chosenFirst ?? {}) ? (chosenFirst as { title?: string }).title : undefined) ?? "已选"}
           </span>
         </div>
-        <button type="button" onClick={reset} className="text-xs text-zinc-500 underline dark:text-zinc-400">
+        <button type="button" onClick={reset} className="text-xs text-rose-gold-dark underline">
           重新选择
         </button>
       </div>
@@ -78,7 +78,7 @@ export default function RankedTwo({ question, answer, fText, onAnswerChange, onF
         <FTextInput prompt={question.fPrompt ?? "请输入"} value={fText} onChange={onFTextChange} />
       )}
 
-      <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">{question.secondLabel ?? "第二优先"}</p>
+      <p className="text-sm font-medium text-rose-gold-dark">{question.secondLabel ?? "第二优先"}</p>
       <div className="flex flex-col gap-3">
         {remaining.map((opt) => (
           <OptionButton
