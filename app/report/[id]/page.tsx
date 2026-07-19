@@ -1,84 +1,27 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabase";
-import { isChangeModule, isTensionsModule, type Report, type ReportModule } from "@/lib/report-types";
+import type { Answers } from "@/lib/questions";
+import type { Report } from "@/lib/report-types";
+import ReportModules from "./components/ReportModules";
 
 interface ReportRow {
   report_id: string;
   summary: string;
   full_report: Report;
+  answers: Answers;
 }
 
 async function getReport(reportId: string): Promise<ReportRow | null> {
   const supabase = getSupabaseServerClient();
   const { data, error } = await supabase
     .from("reports")
-    .select("report_id, summary, full_report")
+    .select("report_id, summary, full_report, answers")
     .eq("report_id", reportId)
     .single();
 
   if (error || !data) return null;
   return data as unknown as ReportRow;
-}
-
-function ModuleCard({ module: m }: { module: ReportModule }) {
-  if (isTensionsModule(m)) {
-    return (
-      <section className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-950">
-        <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-50">{m.title}</h3>
-        {m.tensions.length === 0 ? (
-          <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{m.body}</p>
-        ) : (
-          <ul className="flex flex-col gap-3">
-            {m.tensions.map((t, i) => (
-              <li key={i} className="rounded-xl bg-zinc-50 p-4 text-sm leading-relaxed text-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
-                {t.body}
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-    );
-  }
-
-  if (isChangeModule(m)) {
-    return (
-      <section className="flex flex-col gap-4 rounded-2xl border border-zinc-900 bg-zinc-50 p-5 dark:border-zinc-50 dark:bg-zinc-900">
-        <div className="flex items-center justify-between">
-          <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-50">{m.title}</h3>
-          <span className="rounded-full bg-zinc-900 px-3 py-1 text-xs font-medium text-white dark:bg-zinc-50 dark:text-black">
-            {m.g1_alignment}
-          </span>
-        </div>
-        <p className="text-sm leading-relaxed text-zinc-800 dark:text-zinc-200">{m.insight}</p>
-        <dl className="flex flex-col gap-3 text-sm">
-          <div>
-            <dt className="font-medium text-zinc-500 dark:text-zinc-400">为什么会这样</dt>
-            <dd className="mt-1 leading-relaxed text-zinc-700 dark:text-zinc-300">{m.function}</dd>
-          </div>
-          <div>
-            <dt className="font-medium text-zinc-500 dark:text-zinc-400">什么时候会开始失效</dt>
-            <dd className="mt-1 leading-relaxed text-zinc-700 dark:text-zinc-300">{m.cost}</dd>
-          </div>
-          <div>
-            <dt className="font-medium text-zinc-500 dark:text-zinc-400">可以试试</dt>
-            <dd className="mt-1 leading-relaxed text-zinc-700 dark:text-zinc-300">{m.practice}</dd>
-          </div>
-          <div>
-            <dt className="font-medium text-zinc-500 dark:text-zinc-400">7-14天后回顾</dt>
-            <dd className="mt-1 leading-relaxed text-zinc-700 dark:text-zinc-300">{m.review}</dd>
-          </div>
-        </dl>
-      </section>
-    );
-  }
-
-  return (
-    <section className="flex flex-col gap-2 rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-950">
-      <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-50">{m.title}</h3>
-      <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{m.body}</p>
-    </section>
-  );
 }
 
 export default async function ReportPage({ params }: { params: Promise<{ id: string }> }) {
@@ -96,9 +39,7 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
           <p className="text-lg font-medium leading-relaxed text-white dark:text-black">{report.summary}</p>
         </div>
 
-        {modules.map((m) => (
-          <ModuleCard key={m.id} module={m} />
-        ))}
+        <ReportModules modules={modules} answers={report.answers} />
 
         <div className="flex flex-col gap-3 pt-4">
           <a

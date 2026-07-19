@@ -5,6 +5,7 @@ export default function Home() {
     <div className="flex min-h-dvh flex-col items-center justify-center bg-zinc-50 px-6 py-16 font-sans dark:bg-black">
       <main className="flex w-full max-w-md flex-col items-center gap-8 text-center">
         <div className="flex flex-col gap-4">
+          <p className="text-sm font-medium tracking-wide text-rose-gold-dark">Rela</p>
           <h1 className="text-3xl font-semibold leading-snug tracking-tight text-zinc-900 dark:text-zinc-50">
             你的亲密关系说明书
           </h1>

@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "你的亲密关系说明书",
+  title: "Rela · 你的亲密关系说明书",
   description: "15 道场景化选择题，帮你看清自己在关系中真正需要什么、怎样爱与被爱。",
 };
 

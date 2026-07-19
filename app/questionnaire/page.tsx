@@ -6,6 +6,7 @@ import { QUESTIONS, type Answers, type FTextInputs, type Question, type Question
 import SingleChoice from "./components/SingleChoice";
 import RankedTwo from "./components/RankedTwo";
 import BestWorstTwoStep from "./components/BestWorstTwoStep";
+import GeneratingScreen from "./components/GeneratingScreen";
 
 const TOTAL_STEPS = QUESTIONS.length + 1; // 最后一步是邮箱+提交
 
@@ -77,14 +78,7 @@ export default function QuestionnairePage() {
   }
 
   if (submitting) {
-    return (
-      <div className="flex min-h-dvh flex-col items-center justify-center gap-4 bg-zinc-50 px-6 text-center dark:bg-black">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-zinc-300 border-t-zinc-900 dark:border-zinc-700 dark:border-t-zinc-50" />
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">
-          正在生成你的专属报告，大约需要 10-30 秒，请不要关闭页面……
-        </p>
-      </div>
-    );
+    return <GeneratingScreen />;
   }
 
   return (
