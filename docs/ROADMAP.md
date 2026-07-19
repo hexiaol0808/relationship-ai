@@ -16,12 +16,16 @@
 
 **相关文档**：QUESTIONNAIRE_V3_STRUCTURE.md（测量架构冻结+证据语言）、EXPERIMENTAL_QUESTION_BANK.md（退役/实验构念存档）、PROMPT_STRESS_TEST_V1.md / PROMPT_STRESS_TEST_BATCH2.md / PROMPT_STRESS_TEST_BOUNDARY.md / PHASE_1_2_BULK_TEST_LOG.md（四轮压测完整记录）。
 
-## Phase 2 — 技术栈搭建（预计 1 天）
-- 初始化 Next.js 项目
-- 在 Supabase 建 `reports` 表（按 MVP_SCOPE.md 中的数据结构）
-- 配置 Claude / OpenAI 的 API Key（仅服务器端环境变量）
-- 搭建"可切换 Provider"的 AI 生成层
-- 打通 Vercel 部署管道（先跑通一个空壳页面，确认线上可访问）
+## Phase 2 — 技术栈搭建（预计 1 天）【已完成，2026-07-19】
+- [x] 初始化 Next.js 项目 → 仓库根目录，原有内容文档移至 docs/
+- [x] 在 Supabase 建 `reports` 表（按 MVP_SCOPE.md 中的数据结构）→ supabase/schema.sql
+- [x] 配置 Claude / OpenAI 的 API Key（仅服务器端环境变量）→ .env.local（gitignored），两个 provider 均已实测调通
+- [x] 搭建"可切换 Provider"的 AI 生成层 → lib/ai/（registry 模式，AI_PROVIDER 环境变量切换，当前默认 openai）
+- [x] 打通 Vercel 部署管道 → GitHub (hexiaol0808/relationship-ai) 接 Vercel 自动部署，线上地址 https://relationship-ai-snowy.vercel.app，首页与 /api/test-ai 均已验证 200
+
+**踩坑记录**：中国大陆不在 Anthropic / OpenAI 官方支持地区列表内，两边账号最初都遇到充值/付款失败，非 VPN 能稳定绕过的问题（Stripe 会同时核对账单地址与发卡国）；后续用户自行解决了充值，两个 provider 现在都能正常调用。若未来又遇到同样的支付问题，可考虑接入境内可用模型（DeepSeek / 智谱 GLM / Kimi / 通义千问），现有 provider 抽象层加一个新文件即可，无需改调用方代码。
+
+**Phase 2 全部完成，可以进入 Phase 3。**
 
 ## Phase 3 — 核心功能开发（预计 2-3 天）
 - 问卷交互页面（15 题，移动端优先，支持 ABCDE + F 自由输入）
