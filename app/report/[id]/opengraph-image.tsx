@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { getSupabaseServerClient } from "@/lib/supabase";
-import { getQuestion, type Answers } from "@/lib/questions";
-import { iconForTitle } from "@/lib/love-language-icons";
+import type { Answers } from "@/lib/questions";
+import { cp1Picks, iconForTitle } from "@/lib/love-language-icons";
 
 export const alt = "Rela · 你的亲密关系说明书";
 export const size = { width: 1200, height: 630 };
@@ -19,21 +19,11 @@ async function getShareData(reportId: string): Promise<ShareData | null> {
   return data as unknown as ShareData;
 }
 
-function cp1Titles(answers: Answers | undefined): string[] {
-  if (!answers) return [];
-  const ans = answers["q1"];
-  if (!ans || !("first" in ans)) return [];
-  const question = getQuestion(1);
-  return [ans.first, ans.second]
-    .map((letter) => question.options.find((o) => o.letter === letter)?.title)
-    .filter((t): t is string => Boolean(t));
-}
-
 export default async function Image({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const data = await getShareData(id);
   const summary = data?.summary ?? "一份更了解自己的关系操作系统说明书";
-  const loveLanguages = cp1Titles(data?.answers);
+  const loveLanguages = data?.answers ? cp1Picks(data.answers).map((p) => p.title) : [];
 
   return new ImageResponse(
     (

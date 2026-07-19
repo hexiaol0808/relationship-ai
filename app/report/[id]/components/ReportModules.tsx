@@ -2,8 +2,8 @@
 
 import type { ReactNode } from "react";
 import { isChangeModule, isTensionsModule, type ReportModule } from "@/lib/report-types";
-import { getQuestion, type Answers, type Question, type QuestionAnswer } from "@/lib/questions";
-import { iconForTitle } from "@/lib/love-language-icons";
+import type { Answers } from "@/lib/questions";
+import { cp1Picks, cp2Picks, iconForTitle } from "@/lib/love-language-icons";
 import { splitIntoParagraphs } from "@/lib/text";
 
 interface ReportModulesProps {
@@ -11,17 +11,9 @@ interface ReportModulesProps {
   answers: Answers;
 }
 
-function chipsFor(ans: QuestionAnswer | undefined, question: Question) {
-  if (!ans || !("first" in ans)) return [];
-  return [ans.first, ans.second].map((letter) => {
-    const opt = question.options.find((o) => o.letter === letter);
-    return { letter, title: opt?.title ?? letter };
-  });
-}
-
 function LoveLanguageChips({ answers }: { answers: Answers }) {
-  const cp1Chips = chipsFor(answers["q1"], getQuestion(1));
-  const cp2Chips = chipsFor(answers["q2"], getQuestion(2));
+  const cp1Chips = cp1Picks(answers);
+  const cp2Chips = cp2Picks(answers);
 
   if (cp1Chips.length === 0 && cp2Chips.length === 0) return null;
 

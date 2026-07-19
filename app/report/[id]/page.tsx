@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabase";
 import type { Answers } from "@/lib/questions";
 import type { Report } from "@/lib/report-types";
+import RelationshipCard from "./components/RelationshipCard";
 import ReportModules from "./components/ReportModules";
 
 interface ReportRow {
@@ -34,12 +35,12 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
   return (
     <div className="min-h-dvh bg-cream px-6 py-10">
       <div className="mx-auto flex w-full max-w-md flex-col gap-6">
-        <div className="flex flex-col gap-3 rounded-2xl bg-gradient-to-br from-rose-gold to-rose-gold-dark p-6 text-center shadow-sm">
-          <p className="text-xs uppercase tracking-wide text-white/70">你的关系操作系统说明书</p>
-          <p className="text-lg font-medium leading-relaxed text-white">{report.summary}</p>
-        </div>
+        <RelationshipCard summary={report.summary} answers={report.answers} />
 
-        <ReportModules modules={modules} answers={report.answers} />
+        <div id="full-report" className="scroll-mt-6 pt-4">
+          <p className="mb-4 text-center text-sm text-rose-gold-dark">你的完整关系报告</p>
+          <ReportModules modules={modules} answers={report.answers} />
+        </div>
 
         <div className="flex flex-col gap-3 pt-4">
           <a
