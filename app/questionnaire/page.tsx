@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { QUESTIONS, type Answers, type FTextInputs, type Question, type QuestionAnswer } from "@/lib/questions";
+import Button from "@/app/components/Button";
 import SingleChoice from "./components/SingleChoice";
 import RankedTwo from "./components/RankedTwo";
 import BestWorstTwoStep from "./components/BestWorstTwoStep";
@@ -82,16 +83,16 @@ export default function QuestionnairePage() {
   }
 
   return (
-    <div className="min-h-dvh bg-cream px-6 py-10">
+    <div className="min-h-dvh bg-paper px-6 py-10">
       <div className="mx-auto flex w-full max-w-md flex-col gap-8">
         <div className="flex flex-col gap-2">
-          <div className="h-1.5 w-full overflow-hidden rounded-full bg-blush">
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-paper-secondary">
             <div
-              className="h-full rounded-full bg-rose-gold transition-all"
+              className="h-full rounded-full bg-clay transition-all"
               style={{ width: `${((stepIndex + 1) / TOTAL_STEPS) * 100}%` }}
             />
           </div>
-          <p className="text-xs text-zinc-400">
+          <p className="text-xs text-ink-soft">
             {isFinalStep ? "最后一步" : `第 ${stepIndex + 1} / ${QUESTIONS.length} 题`}
           </p>
         </div>
@@ -99,8 +100,8 @@ export default function QuestionnairePage() {
         {!isFinalStep && question && key && (
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <h2 className="text-xl font-semibold leading-snug text-zinc-800">{question.title}</h2>
-              <p className="whitespace-pre-line text-sm leading-relaxed text-zinc-600">{question.prompt}</p>
+              <h2 className="font-heading text-xl leading-snug text-ink">{question.title}</h2>
+              <p className="whitespace-pre-line text-sm leading-relaxed text-ink-soft">{question.prompt}</p>
             </div>
             <QuestionRenderer
               key={question.id}
@@ -116,8 +117,8 @@ export default function QuestionnairePage() {
         {isFinalStep && (
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <h2 className="text-xl font-semibold leading-snug text-zinc-800">最后一步：留个邮箱（可选）</h2>
-              <p className="text-sm leading-relaxed text-zinc-600">
+              <h2 className="font-heading text-xl leading-snug text-ink">最后一步：留个邮箱（可选）</h2>
+              <p className="text-sm leading-relaxed text-ink-soft">
                 填了邮箱可以在未来找回这份报告，不填也完全没问题，直接点提交就好。
               </p>
             </div>
@@ -126,7 +127,7 @@ export default function QuestionnairePage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com（可选）"
-              className="w-full rounded-2xl border border-zinc-200 bg-white p-4 text-sm text-zinc-800 outline-none focus:border-rose-gold"
+              className="w-full rounded-2xl border border-hairline bg-card p-4 text-sm text-ink outline-none focus:border-clay"
             />
             {error && <p className="text-sm text-red-500">{error}</p>}
           </div>
@@ -137,29 +138,18 @@ export default function QuestionnairePage() {
             type="button"
             disabled={stepIndex === 0}
             onClick={() => setStepIndex((i) => Math.max(0, i - 1))}
-            className="flex h-12 items-center justify-center rounded-full border border-rose-gold/40 px-6 text-sm font-medium text-rose-gold-dark disabled:opacity-0"
+            className="flex h-12 items-center justify-center rounded-full border border-clay/40 px-6 text-sm font-medium text-clay-dark disabled:opacity-0"
           >
             上一题
           </button>
           {isFinalStep ? (
-            <button
-              type="button"
-              data-testid="submit-button"
-              onClick={handleSubmit}
-              className="flex h-12 flex-1 items-center justify-center rounded-full bg-rose-gold px-6 text-sm font-medium text-white shadow-sm transition-colors hover:bg-rose-gold-dark"
-            >
+            <Button data-testid="submit-button" onClick={handleSubmit} fullWidth className="flex-1">
               提交，生成我的报告
-            </button>
+            </Button>
           ) : (
-            <button
-              type="button"
-              data-testid="next-button"
-              disabled={!canProceed}
-              onClick={() => setStepIndex((i) => Math.min(QUESTIONS.length, i + 1))}
-              className="flex h-12 flex-1 items-center justify-center rounded-full bg-rose-gold px-6 text-sm font-medium text-white shadow-sm transition-colors hover:bg-rose-gold-dark disabled:cursor-not-allowed disabled:opacity-40"
-            >
+            <Button data-testid="next-button" onClick={() => setStepIndex((i) => Math.min(QUESTIONS.length, i + 1))} disabled={!canProceed} fullWidth className="flex-1">
               下一题
-            </button>
+            </Button>
           )}
         </div>
       </div>

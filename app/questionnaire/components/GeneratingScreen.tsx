@@ -43,21 +43,21 @@ export default function GeneratingScreen() {
   const scene = SCENES[sceneIndex];
 
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center gap-8 bg-gradient-to-b from-cream to-blush px-6 text-center">
-      <p className="text-lg font-medium text-rose-gold-dark">Rela 正在深入理解你</p>
+    <div className="flex min-h-dvh flex-col items-center justify-center gap-8 bg-paper px-6 text-center">
+      <p className="font-heading text-lg text-clay-dark">Rela 正在深入理解你</p>
 
       <div key={`scene-${sceneIndex}`} className="flex flex-col items-center gap-3 animate-[fadeIn_0.5s_ease-in-out]">
         <div className="text-6xl leading-none">{scene.emoji}</div>
-        <p className="text-sm text-rose-gold-dark/80">{scene.caption}</p>
+        <p className="text-sm text-clay-dark/80">{scene.caption}</p>
       </div>
 
-      <p className="text-base font-medium text-zinc-800">❤️ 正在生成你的关系说明书……</p>
+      <p className="text-base font-medium text-ink">正在生成你的关系说明书……</p>
 
-      <p key={`status-${statusIndex}`} className="text-sm text-zinc-500 animate-[fadeIn_0.4s_ease-in-out]">
+      <p key={`status-${statusIndex}`} className="text-sm text-ink-soft animate-[fadeIn_0.4s_ease-in-out]">
         {STATUS_MESSAGES[statusIndex]}
       </p>
 
-      <p className="mt-4 text-xs text-zinc-400">请不要关闭页面，大约需要 10-30 秒</p>
+      <p className="mt-4 text-xs text-ink-soft">请不要关闭页面，大约需要 10-30 秒</p>
     </div>
   );
 }

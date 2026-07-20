@@ -36,24 +36,26 @@ export default async function Image({ params }: { params: Promise<{ id: string }
           justifyContent: "center",
           alignItems: "center",
           padding: "80px",
-          background: "linear-gradient(135deg, #FFF9F7 0%, #FBE7E4 60%, #FDE3D0 100%)",
+          background: "#F8F6F2",
           fontSize: 28,
           textAlign: "center",
         }}
       >
-        <div style={{ display: "flex", fontSize: 34, fontWeight: 700, color: "#3f3f46" }}>你的关系说明书</div>
+        <div style={{ display: "flex", fontSize: 34, fontWeight: 700, color: "#2F2B29" }}>你的关系说明书</div>
 
         <div
           style={{
             display: "flex",
             width: 320,
-            height: 2,
-            background: "#C98A93",
+            height: 1,
+            background: "#8E776A",
             margin: "36px 0",
           }}
         />
 
-        <div style={{ display: "flex", fontSize: 56, marginBottom: 20 }}>❤️</div>
+        <div style={{ display: "flex", fontSize: 40, fontStyle: "italic", color: "#8E776A", marginBottom: 20 }}>
+          Rela
+        </div>
 
         {loveLanguages.length > 0 && (
           <div style={{ display: "flex", gap: 24, marginBottom: 8 }}>
@@ -64,11 +66,11 @@ export default async function Image({ params }: { params: Promise<{ id: string }
                   display: "flex",
                   alignItems: "center",
                   gap: 8,
-                  background: "#ffffff",
+                  background: "#FAF8F5",
                   borderRadius: 999,
                   padding: "10px 24px",
                   fontSize: 26,
-                  color: "#52525b",
+                  color: "#7D756D",
                 }}
               >
                 <span>{iconForTitle(title)}</span>
@@ -82,15 +84,15 @@ export default async function Image({ params }: { params: Promise<{ id: string }
           style={{
             display: "flex",
             width: 320,
-            height: 2,
-            background: "#C98A93",
+            height: 1,
+            background: "#8E776A",
             margin: "36px 0",
           }}
         />
 
         <div style={{ display: "flex", flexDirection: "column", gap: 12, maxWidth: 800 }}>
-          <div style={{ display: "flex", justifyContent: "center", fontSize: 24, color: "#a8677a" }}>你在关系中：</div>
-          <div style={{ display: "flex", fontSize: 32, fontWeight: 600, color: "#3f3f46", lineHeight: 1.5 }}>
+          <div style={{ display: "flex", justifyContent: "center", fontSize: 24, color: "#786356" }}>你在关系中：</div>
+          <div style={{ display: "flex", fontSize: 32, fontWeight: 600, color: "#2F2B29", lineHeight: 1.5 }}>
             “{summary}”
           </div>
         </div>
@@ -99,13 +101,13 @@ export default async function Image({ params }: { params: Promise<{ id: string }
           style={{
             display: "flex",
             width: 320,
-            height: 2,
-            background: "#C98A93",
+            height: 1,
+            background: "#8E776A",
             margin: "36px 0",
           }}
         />
 
-        <div style={{ display: "flex", fontSize: 22, color: "#a8677a" }}>来自 · Rela 关系雕塑家</div>
+        <div style={{ display: "flex", fontSize: 22, color: "#786356" }}>来自 · Rela 关系雕塑家</div>
       </div>
     ),
     { ...size }

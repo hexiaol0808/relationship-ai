@@ -23,17 +23,17 @@ function LoveLanguageChips({ answers }: { answers: Answers }) {
   ];
 
   return (
-    <div className="flex flex-col gap-3 rounded-xl bg-blush/50 p-4">
+    <div className="flex flex-col gap-3 rounded-xl bg-paper-secondary p-4">
       {rows.map(
         (row) =>
           row.chips.length > 0 && (
             <div key={row.label} className="flex flex-col gap-1.5">
-              <span className="text-xs font-medium text-rose-gold-dark">{row.label}</span>
+              <span className="text-xs font-medium text-clay-dark">{row.label}</span>
               <div className="flex flex-wrap gap-2">
                 {row.chips.map((c) => (
                   <span
                     key={c.letter}
-                    className="flex items-center gap-1 rounded-full bg-white px-3 py-1 text-sm text-zinc-700"
+                    className="flex items-center gap-1 rounded-full bg-card px-3 py-1 text-sm text-ink-soft"
                   >
                     <span>{iconForTitle(c.title)}</span>
                     <span>{c.title}</span>
@@ -57,11 +57,11 @@ function AccordionItem({
   children: ReactNode;
 }) {
   return (
-    <details open={defaultOpen} className="group rounded-2xl border border-zinc-200 bg-white">
+    <details open={defaultOpen} className="group rounded-2xl border border-hairline bg-card">
       <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-5 [&::-webkit-details-marker]:hidden">
-        <span className="text-base font-semibold text-zinc-800">{title}</span>
+        <span className="font-heading text-lg text-ink">{title}</span>
         <svg
-          className="h-4 w-4 shrink-0 text-rose-gold-dark/60 transition-transform group-open:rotate-180"
+          className="h-4 w-4 shrink-0 text-clay-dark/60 transition-transform group-open:rotate-180"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -80,7 +80,7 @@ function ModuleBody({ body }: { body: string }) {
   return (
     <div className="flex flex-col gap-3">
       {paragraphs.map((p, i) => (
-        <p key={i} className="text-base leading-loose text-zinc-600">
+        <p key={i} className="text-base leading-loose text-ink-soft">
           {p}
         </p>
       ))}
@@ -105,11 +105,11 @@ export default function ReportModules({ modules, answers }: ReportModulesProps) 
           return (
             <AccordionItem key={m.id} title={m.title} defaultOpen={defaultOpen}>
               {m.tensions.length === 0 ? (
-                <p className="text-base leading-loose text-zinc-600">{m.body}</p>
+                <p className="text-base leading-loose text-ink-soft">{m.body}</p>
               ) : (
                 <ul className="flex flex-col gap-3">
                   {m.tensions.map((t, i) => (
-                    <li key={i} className="rounded-xl bg-blush/40 p-4 text-base leading-loose text-zinc-700">
+                    <li key={i} className="rounded-xl bg-paper-secondary p-4 text-base leading-loose text-ink-soft">
                       {t.body}
                     </li>
                   ))}
@@ -127,18 +127,18 @@ export default function ReportModules({ modules, answers }: ReportModulesProps) 
               title={
                 <span className="flex items-center gap-2">
                   {m.title}
-                  <span className="rounded-full bg-rose-gold px-3 py-1 text-xs font-medium text-white">
+                  <span className="rounded-full bg-clay px-3 py-1 text-xs font-medium text-white">
                     {m.g1_alignment}
                   </span>
                 </span>
               }
             >
-              <p className="text-base leading-loose text-zinc-800">{m.insight}</p>
+              <p className="text-base leading-loose text-ink">{m.insight}</p>
               <dl className="flex flex-col gap-4 text-base">
                 {CHANGE_FIELDS.map(([label, field]) => (
                   <div key={field}>
-                    <dt className="text-sm font-medium text-rose-gold-dark">{label}</dt>
-                    <dd className="mt-1 leading-loose text-zinc-700">{m[field]}</dd>
+                    <dt className="text-sm font-medium text-clay-dark">{label}</dt>
+                    <dd className="mt-1 leading-loose text-ink-soft">{m[field]}</dd>
                   </div>
                 ))}
               </dl>

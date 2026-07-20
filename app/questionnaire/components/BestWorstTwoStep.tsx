@@ -45,7 +45,7 @@ export default function BestWorstTwoStep({
   if (!pendingFirst) {
     return (
       <div className="flex flex-col gap-3">
-        <p className="text-sm font-medium text-rose-gold-dark">{question.step1Label ?? "请选择最符合的一项："}</p>
+        <p className="text-sm font-medium text-clay-dark">{question.step1Label ?? "请选择最符合的一项："}</p>
         {step1Choices.map((opt) => (
           <OptionButton
             key={opt.letter}
@@ -66,12 +66,12 @@ export default function BestWorstTwoStep({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between rounded-2xl bg-blush/60 p-4">
-        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-gold text-xs font-medium text-white">
+      <div className="flex items-center justify-between rounded-2xl bg-paper-secondary p-4">
+        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-clay text-xs font-medium text-white">
           {pendingFirst}
         </span>
-        <span className="flex-1 px-3 text-sm text-zinc-600">第一步已选</span>
-        <button type="button" onClick={reset} className="text-xs text-rose-gold-dark underline">
+        <span className="flex-1 px-3 text-sm text-ink-soft">第一步已选</span>
+        <button type="button" onClick={reset} className="text-xs text-clay-dark underline">
           重新选择
         </button>
       </div>
@@ -81,10 +81,10 @@ export default function BestWorstTwoStep({
       )}
 
       <div className="flex flex-col gap-1">
-        <p className="text-sm font-medium text-rose-gold-dark">
+        <p className="text-sm font-medium text-clay-dark">
           {question.step2Label ?? "在剩下的选项里，哪一项是你相对更能适应的？"}
         </p>
-        {question.step2Hint && <p className="text-xs text-zinc-400">{question.step2Hint}</p>}
+        {question.step2Hint && <p className="text-xs text-ink-soft">{question.step2Hint}</p>}
       </div>
       <div className="flex flex-col gap-3">
         {secondChoices.map((opt) => (

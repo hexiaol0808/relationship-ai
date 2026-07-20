@@ -1,8 +1,8 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabase";
 import type { Answers } from "@/lib/questions";
 import type { Report } from "@/lib/report-types";
+import Button from "@/app/components/Button";
 import RelationshipCard from "./components/RelationshipCard";
 import ReportModules from "./components/ReportModules";
 
@@ -33,31 +33,28 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
   const modules = [...report.full_report.modules].sort((a, b) => a.id - b.id);
 
   return (
-    <div className="min-h-dvh bg-cream px-6 py-10">
+    <div className="min-h-dvh bg-paper px-6 py-10">
       <div className="mx-auto flex w-full max-w-md flex-col gap-6">
         <RelationshipCard summary={report.summary} answers={report.answers} />
 
         <div id="full-report" className="scroll-mt-6 pt-4">
-          <p className="mb-4 text-center text-sm text-rose-gold-dark">你的完整关系报告</p>
+          <p className="mb-4 text-center text-sm text-clay-dark">你的完整关系报告</p>
           <ReportModules modules={modules} answers={report.answers} />
         </div>
 
-        <div className="flex flex-col gap-3 pt-4">
-          <a
+        <div className="flex flex-col items-center gap-3 pt-4">
+          <Button
             href={`/report/${report.report_id}/opengraph-image`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-12 items-center justify-center rounded-full bg-rose-gold px-6 text-sm font-medium text-white shadow-sm transition-colors hover:bg-rose-gold-dark"
+            className="!max-w-none"
           >
             一键生成分享图
-          </a>
-          <p className="text-center text-xs text-zinc-400">长按图片保存到相册</p>
-          <Link
-            href="/questionnaire"
-            className="flex h-12 items-center justify-center rounded-full border border-rose-gold/40 px-6 text-sm font-medium text-rose-gold-dark"
-          >
+          </Button>
+          <p className="text-center text-xs text-ink-soft">长按图片保存到相册</p>
+          <Button href="/questionnaire" variant="outline" className="!max-w-none">
             邀请 TA 也来测
-          </Link>
+          </Button>
         </div>
       </div>
     </div>

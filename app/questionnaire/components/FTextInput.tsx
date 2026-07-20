@@ -8,15 +8,15 @@ interface FTextInputProps {
 
 export default function FTextInput({ prompt, value, onChange }: FTextInputProps) {
   return (
-    <div className="flex flex-col gap-2 rounded-2xl border border-dashed border-rose-gold/40 p-4">
-      <span className="text-sm text-zinc-600">{prompt}</span>
+    <div className="flex flex-col gap-2 rounded-2xl border border-dashed border-clay/40 p-4">
+      <span className="text-sm text-ink-soft">{prompt}</span>
       <textarea
         data-testid="f-text-input"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         rows={3}
         placeholder="请输入（可以留空）"
-        className="w-full resize-none rounded-lg border border-zinc-200 bg-white p-3 text-sm text-zinc-800 outline-none focus:border-rose-gold"
+        className="w-full resize-none rounded-lg border border-hairline bg-card p-3 text-sm text-ink outline-none focus:border-clay"
       />
     </div>
   );
