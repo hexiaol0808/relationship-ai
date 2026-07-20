@@ -4,6 +4,16 @@ import SculptureVisual from "./components/SculptureVisual";
 
 const TRUST_POINTS = ["5–8 分钟", "AI 个性化分析", "完全免费", "无需注册"];
 
+const DISCOVERIES = ["为什么总在同一个地方受伤", "自己真正需要怎样的爱", "下一次，可以怎样建立更健康的关系"];
+
+function CheckIcon() {
+  return (
+    <svg viewBox="0 0 16 16" className="h-4 w-4 shrink-0 text-clay" fill="none" stroke="currentColor" strokeWidth="1.6">
+      <path d="M3 8.5 6.5 12 13 4.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 const STEPS = [
   {
     number: "01",
@@ -65,11 +75,19 @@ export default function Home() {
             都值得一份说明书。
           </h1>
 
-          <p className="text-base leading-relaxed text-ink-soft">
-            15 道真实关系场景。AI 帮你生成属于自己的 Relationship Manual。
-            <br />
-            不是人格分类，不是打分，而是一份真正帮助你理解自己的说明书。
-          </p>
+          <div className="flex flex-col gap-3">
+            <p className="text-base leading-relaxed text-ink-soft">15 道真实关系场景。帮助你发现：</p>
+            <ul className="flex flex-col gap-2 text-base text-ink">
+              {DISCOVERIES.map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <span className="mt-1">
+                    <CheckIcon />
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <Button href="/questionnaire" data-testid="hero-cta">
             开始探索
@@ -78,9 +96,7 @@ export default function Home() {
           <ul className="flex flex-col gap-2 pt-2 text-sm text-ink-soft">
             {TRUST_POINTS.map((point) => (
               <li key={point} className="flex items-center gap-2">
-                <svg viewBox="0 0 16 16" className="h-4 w-4 shrink-0 text-clay" fill="none" stroke="currentColor" strokeWidth="1.6">
-                  <path d="M3 8.5 6.5 12 13 4.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <CheckIcon />
                 {point}
               </li>
             ))}
