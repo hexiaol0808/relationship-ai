@@ -56,6 +56,10 @@
 
   过程中用 Playwright 的 `page.route()` mock 掉 `/api/generate-report`，验证等待页动画和 UI 交互时不产生真实付费 API 调用；顺手抓到一个真 bug（等待页两个独立循环计数器共用数字当 React key，偶尔撞车触发 console error）。
 
+- [x] **首页 V2 全面改版（2026-07-20）**：上面这版奶油/玫瑰金配色第二天被整体推翻重做。产品方向改成"Relationship Sculptor"——克制高级的关系智能平台定位（Apple/Aesop/Kinfolk/Notion 参考），**不是**之前的温柔可爱心理测试风格。全站配色换成石色/棕色系（`paper`/`ink`/`clay` 系列 token，唯一强调色 `#8E776A`），标题字体换成思源宋体（Noto Serif SC）+ Cormorant Garamond，正文字体换成 Inter + Noto Sans SC；首页重写成 Hero/Mission/How it Works/Trust/CTA 五段式结构，Hero 右侧用纯 CSS/SVG 手写了一个抽象拱门+圆形的"雕塑"视觉（没有图片生成/素材获取能力，也刻意不用爱心/插画/卡通）；新增 `app/components/{Button,FadeInSection,SculptureVisual}.tsx` 三个共享组件。问卷页、报告页、分享卡维持原有交互结构不变，只是同步换色。
+
+  **当前实际状态**：代码已完成（typecheck/lint/build 全部通过）并推送到 `main`（commit `1ec6c5c`），但截至这次会话结束，**Vercel 线上部署没有在正常时间内生效**——推送后等了约10分钟，线上首页仍返回旧的粉色版本内容，响应头显示是16小时前的缓存命中，不像是"还在构建"。原因未确诊（这个环境没有 Vercel CLI/API 访问权限查构建日志），已请用户自行去 Vercel 控制台确认这次部署状态。**下次接手前，先确认线上是否已经是石色系版本，不要默认部署已经生效。**
+
 ## Phase 5 — 上线准备（预计 1 天）
 - 绑定正式域名
 - 最终检查 API Key 安全性（确认前端代码不含任何密钥）
