@@ -35,7 +35,7 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
   return (
     <div className="min-h-dvh bg-paper px-6 py-10">
       <div className="mx-auto flex w-full max-w-md flex-col gap-6">
-        <RelationshipCard summary={report.summary} answers={report.answers} />
+        <RelationshipCard summary={report.summary} answers={report.answers} modules={modules} />
 
         <div id="full-report" className="scroll-mt-6 pt-4">
           <p className="mb-4 text-center text-sm text-clay-dark">你的完整关系报告</p>

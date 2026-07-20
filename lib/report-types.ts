@@ -1,44 +1,25 @@
-// 对应 docs/REPORT_SYSTEM_PROMPT_V1.md 层5 Output Contract 的 JSON 结构。
+// 对应 docs/REPORT_SYSTEM_PROMPT_V1.md 层5 Output Contract 的 JSON 结构（6模块版，prompt_version v2）。
 
 export interface StandardModule {
-  id: number; // 1-8
+  id: number; // 1-6
   title: string;
-  body: string;
+  conclusion: string;
+  explanation: string;
+  /** Module 1（你的关系画像）没有这两个字段，只写 conclusion+explanation。 */
+  feelings?: string[];
+  actions?: string[];
 }
 
-export interface Tension {
-  type: string;
-  body: string;
-}
-
-export interface TensionsModule {
-  id: 9;
-  title: string;
-  tensions: Tension[];
-  /** tensions 为空数组时，模型会在这里写一句"内部一致性较高"之类的说明。 */
-  body?: string;
-}
-
-export interface ChangeModule {
-  id: 10;
-  title: string;
+export interface ChangeModule extends StandardModule {
+  id: 6;
   g1_alignment: string;
-  insight: string;
-  function: string;
-  cost: string;
-  practice: string;
-  review: string;
 }
 
-export type ReportModule = StandardModule | TensionsModule | ChangeModule;
+export type ReportModule = StandardModule | ChangeModule;
 
 export interface Report {
   modules: ReportModule[];
   summary: string;
-}
-
-export function isTensionsModule(m: ReportModule): m is TensionsModule {
-  return Array.isArray((m as TensionsModule).tensions);
 }
 
 export function isChangeModule(m: ReportModule): m is ChangeModule {

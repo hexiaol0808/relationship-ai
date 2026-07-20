@@ -1,20 +1,7 @@
-// CP1/CP2 共用的五种爱的语言，标题到 emoji 的映射。
-// 用于报告页模块2的图标条、Relationship Card、分享卡片。
+// CP1/CP2 共用的五种爱的语言选择结果。
+// 用于报告页 RelationshipCard、分享卡片的关键词标签（纯文字，不用图标）。
 
 import { getQuestion, type Answers, type Question, type QuestionAnswer } from "./questions";
-
-const ICONS: Record<string, string> = {
-  高质量陪伴: "☕",
-  肯定的话语: "💬",
-  服务的行动: "🤝",
-  礼物与纪念: "🎁",
-  身体接触: "🤗",
-};
-
-export function iconForTitle(title: string | undefined): string {
-  if (!title) return "💛";
-  return ICONS[title] ?? "💛";
-}
 
 export interface LoveLanguagePick {
   letter: string;

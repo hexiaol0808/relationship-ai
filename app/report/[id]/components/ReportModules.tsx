@@ -1,10 +1,10 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { isChangeModule, isTensionsModule, type ReportModule } from "@/lib/report-types";
+import { isChangeModule, type ReportModule } from "@/lib/report-types";
 import type { Answers } from "@/lib/questions";
-import { cp1Picks, cp2Picks, iconForTitle } from "@/lib/love-language-icons";
-import { splitIntoParagraphs } from "@/lib/text";
+import { cp1Picks, cp2Picks } from "@/lib/love-language-icons";
+import { stripConstructCodes } from "@/lib/text";
 
 interface ReportModulesProps {
   modules: ReportModule[];
@@ -28,15 +28,11 @@ function LoveLanguageChips({ answers }: { answers: Answers }) {
         (row) =>
           row.chips.length > 0 && (
             <div key={row.label} className="flex flex-col gap-1.5">
-              <span className="text-xs font-medium text-clay-dark">{row.label}</span>
+              <span className="text-sm font-medium text-clay-dark">{row.label}</span>
               <div className="flex flex-wrap gap-2">
                 {row.chips.map((c) => (
-                  <span
-                    key={c.letter}
-                    className="flex items-center gap-1 rounded-full bg-card px-3 py-1 text-sm text-ink-soft"
-                  >
-                    <span>{iconForTitle(c.title)}</span>
-                    <span>{c.title}</span>
+                  <span key={c.letter} className="rounded-full bg-card px-3 py-1 text-sm text-ink-body">
+                    {c.title}
                   </span>
                 ))}
               </div>
@@ -59,7 +55,7 @@ function AccordionItem({
   return (
     <details open={defaultOpen} className="group rounded-2xl border border-hairline bg-card">
       <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-5 [&::-webkit-details-marker]:hidden">
-        <span className="font-heading text-lg text-ink">{title}</span>
+        <span className="font-heading text-2xl font-bold text-ink">{title}</span>
         <svg
           className="h-4 w-4 shrink-0 text-clay-dark/60 transition-transform group-open:rotate-180"
           viewBox="0 0 24 24"
@@ -70,86 +66,64 @@ function AccordionItem({
           <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </summary>
-      <div className="flex flex-col gap-3 px-5 pb-5">{children}</div>
+      <div className="flex flex-col gap-4 px-5 pb-5">{children}</div>
     </details>
   );
 }
 
-function ModuleBody({ body }: { body: string }) {
-  const paragraphs = splitIntoParagraphs(body);
+function BulletList({ items }: { items: string[] }) {
   return (
-    <div className="flex flex-col gap-3">
-      {paragraphs.map((p, i) => (
-        <p key={i} className="text-base leading-loose text-ink-soft">
-          {p}
-        </p>
+    <ul className="flex flex-col gap-1.5">
+      {items.map((item, i) => (
+        <li key={i} className="flex gap-2 text-base leading-relaxed text-ink-body">
+          <span className="text-clay">·</span>
+          <span>{stripConstructCodes(item)}</span>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 
-const CHANGE_FIELDS: Array<[string, "function" | "cost" | "practice" | "review"]> = [
-  ["为什么会这样", "function"],
-  ["什么时候会开始失效", "cost"],
-  ["可以试试", "practice"],
-  ["7-14天后回顾", "review"],
-];
+function ModuleContent({ module: m }: { module: ReportModule }) {
+  return (
+    <>
+      <p className="text-lg font-bold text-ink">{stripConstructCodes(m.conclusion)}</p>
+      <p className="text-base leading-relaxed text-ink-body">{stripConstructCodes(m.explanation)}</p>
+
+      {m.feelings && m.feelings.length > 0 && (
+        <div className="flex flex-col gap-1.5">
+          <p className="text-sm font-medium text-clay-dark">你可能会有的感受</p>
+          <BulletList items={m.feelings} />
+        </div>
+      )}
+
+      {m.actions && m.actions.length > 0 && (
+        <div className="flex flex-col gap-1.5">
+          <p className="text-sm font-medium text-clay-dark">对你有帮助的行动</p>
+          <BulletList items={m.actions} />
+        </div>
+      )}
+    </>
+  );
+}
 
 export default function ReportModules({ modules, answers }: ReportModulesProps) {
   return (
     <div className="flex flex-col gap-4">
       {modules.map((m) => {
-        const defaultOpen = m.id === 1 || m.id === 10;
-
-        if (isTensionsModule(m)) {
-          return (
-            <AccordionItem key={m.id} title={m.title} defaultOpen={defaultOpen}>
-              {m.tensions.length === 0 ? (
-                <p className="text-base leading-loose text-ink-soft">{m.body}</p>
-              ) : (
-                <ul className="flex flex-col gap-3">
-                  {m.tensions.map((t, i) => (
-                    <li key={i} className="rounded-xl bg-paper-secondary p-4 text-base leading-loose text-ink-soft">
-                      {t.body}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </AccordionItem>
-          );
-        }
-
-        if (isChangeModule(m)) {
-          return (
-            <AccordionItem
-              key={m.id}
-              defaultOpen={defaultOpen}
-              title={
-                <span className="flex items-center gap-2">
-                  {m.title}
-                  <span className="rounded-full bg-clay px-3 py-1 text-xs font-medium text-white">
-                    {m.g1_alignment}
-                  </span>
-                </span>
-              }
-            >
-              <p className="text-base leading-loose text-ink">{m.insight}</p>
-              <dl className="flex flex-col gap-4 text-base">
-                {CHANGE_FIELDS.map(([label, field]) => (
-                  <div key={field}>
-                    <dt className="text-sm font-medium text-clay-dark">{label}</dt>
-                    <dd className="mt-1 leading-loose text-ink-soft">{m[field]}</dd>
-                  </div>
-                ))}
-              </dl>
-            </AccordionItem>
-          );
-        }
+        const title = isChangeModule(m) ? (
+          <span className="flex items-center gap-2">
+            {m.title}
+            <span className="rounded-full bg-clay px-3 py-1 text-xs font-medium text-white">{m.g1_alignment}</span>
+          </span>
+        ) : (
+          m.title
+        );
 
         return (
-          <AccordionItem key={m.id} title={m.title} defaultOpen={defaultOpen}>
+          <AccordionItem key={m.id} title={title} defaultOpen={m.id === 1}>
             {m.id === 2 && <LoveLanguageChips answers={answers} />}
-            <ModuleBody body={m.body} />
+            <ModuleContent module={m} />
           </AccordionItem>
         );
       })}

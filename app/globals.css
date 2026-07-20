@@ -18,6 +18,7 @@
   --color-paper-secondary: #f3efe8;
   --color-card: #faf8f5;
   --color-ink: #2f2b29;
+  --color-ink-body: #554d47;
   --color-ink-soft: #7d756d;
   --color-clay: #8e776a;
   --color-clay-dark: #786356;
@@ -81,5 +82,58 @@ body {
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+/* 等待页极简线稿动画：两个抽象形状 靠近→分开→重新连接→组成完整雕塑，循环播放 */
+@keyframes driftLeftShape {
+  0% {
+    transform: translateX(-42px) rotate(-3deg);
+  }
+  22% {
+    transform: translateX(-5px) rotate(0deg);
+  }
+  38% {
+    transform: translateX(-42px) rotate(-3deg);
+  }
+  60%,
+  92% {
+    transform: translateX(-5px) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-42px) rotate(-3deg);
+  }
+}
+
+@keyframes driftRightShape {
+  0% {
+    transform: translateX(42px) rotate(3deg);
+  }
+  22% {
+    transform: translateX(5px) rotate(0deg);
+  }
+  38% {
+    transform: translateX(42px) rotate(3deg);
+  }
+  60%,
+  92% {
+    transform: translateX(5px) rotate(0deg);
+  }
+  100% {
+    transform: translateX(42px) rotate(3deg);
+  }
+}
+
+@keyframes revealSculpture {
+  0%,
+  60% {
+    opacity: 0;
+  }
+  78%,
+  92% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }

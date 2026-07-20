@@ -1,7 +1,8 @@
 import { ImageResponse } from "next/og";
 import { getSupabaseServerClient } from "@/lib/supabase";
 import type { Answers } from "@/lib/questions";
-import { cp1Picks, iconForTitle } from "@/lib/love-language-icons";
+import { cp1Picks } from "@/lib/love-language-icons";
+import { stripConstructCodes } from "@/lib/text";
 
 export const alt = "Rela · 你的亲密关系说明书";
 export const size = { width: 1200, height: 630 };
@@ -22,7 +23,7 @@ async function getShareData(reportId: string): Promise<ShareData | null> {
 export default async function Image({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const data = await getShareData(id);
-  const summary = data?.summary ?? "一份更了解自己的关系操作系统说明书";
+  const summary = stripConstructCodes(data?.summary ?? "一份更了解自己的关系说明书");
   const loveLanguages = data?.answers ? cp1Picks(data.answers).map((p) => p.title) : [];
 
   return new ImageResponse(
@@ -65,15 +66,13 @@ export default async function Image({ params }: { params: Promise<{ id: string }
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: 8,
                   background: "#FAF8F5",
                   borderRadius: 999,
                   padding: "10px 24px",
                   fontSize: 26,
-                  color: "#7D756D",
+                  color: "#554D47",
                 }}
               >
-                <span>{iconForTitle(title)}</span>
                 <span>{title}</span>
               </div>
             ))}

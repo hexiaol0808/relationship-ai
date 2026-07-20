@@ -2,36 +2,12 @@
 
 import { useEffect, useState } from "react";
 
-const SCENES = [
-  { emoji: "🐶　　🐶", caption: "第一次相遇" },
-  { emoji: "🐶🚶🐕", caption: "一起散步" },
-  { emoji: "🐶💢🐶", caption: "发生争执" },
-  { emoji: "🐶　　🐶", caption: "背对背坐着" },
-  { emoji: "🐶→🐶", caption: "其中一只慢慢靠近" },
-  { emoji: "🐶🤗🐶", caption: "抱抱" },
-  { emoji: "🐕🐶→", caption: "一起走向远方" },
-];
+const STATUS_MESSAGES = ["正在理解你的关系模式", "正在整理你的情感需求", "正在生成专属建议"];
 
-const STATUS_MESSAGES = [
-  "正在分析你的情感需求...",
-  "正在寻找你的安全感来源...",
-  "正在建立关系运行地图...",
-  "正在整理成长建议...",
-];
-
-const SCENE_INTERVAL_MS = 2500;
-const STATUS_INTERVAL_MS = 2000;
+const STATUS_INTERVAL_MS = 2600;
 
 export default function GeneratingScreen() {
-  const [sceneIndex, setSceneIndex] = useState(0);
   const [statusIndex, setStatusIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setSceneIndex((i) => (i + 1) % SCENES.length);
-    }, SCENE_INTERVAL_MS);
-    return () => clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -40,20 +16,58 @@ export default function GeneratingScreen() {
     return () => clearInterval(timer);
   }, []);
 
-  const scene = SCENES[sceneIndex];
-
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center gap-8 bg-paper px-6 text-center">
+    <div className="flex min-h-dvh flex-col items-center justify-center gap-10 bg-paper px-6 text-center">
       <p className="font-heading text-lg text-clay-dark">Rela 正在深入理解你</p>
 
-      <div key={`scene-${sceneIndex}`} className="flex flex-col items-center gap-3 animate-[fadeIn_0.5s_ease-in-out]">
-        <div className="text-6xl leading-none">{scene.emoji}</div>
-        <p className="text-sm text-clay-dark/80">{scene.caption}</p>
+      <div className="relative flex h-32 w-64 items-center justify-center">
+        <svg
+          viewBox="0 0 200 140"
+          className="absolute inset-0 h-full w-full"
+          style={{ animation: "revealSculpture 6.5s ease-in-out infinite" }}
+          aria-hidden="true"
+        >
+          <path
+            d="M30 120 L30 60 A70 70 0 0 1 170 60 L170 120"
+            fill="none"
+            stroke="var(--color-clay)"
+            strokeWidth="1.5"
+          />
+          <line x1="100" y1="46" x2="100" y2="120" stroke="var(--color-clay)" strokeWidth="1" opacity="0.5" />
+        </svg>
+
+        <svg
+          viewBox="0 0 60 60"
+          className="absolute h-14 w-14"
+          style={{ animation: "driftLeftShape 6.5s ease-in-out infinite" }}
+          aria-hidden="true"
+        >
+          <circle cx="30" cy="30" r="24" fill="none" stroke="var(--color-ink-soft)" strokeWidth="1.5" />
+        </svg>
+
+        <svg
+          viewBox="0 0 60 60"
+          className="absolute h-14 w-14"
+          style={{ animation: "driftRightShape 6.5s ease-in-out infinite" }}
+          aria-hidden="true"
+        >
+          <rect
+            x="8"
+            y="8"
+            width="44"
+            height="44"
+            rx="4"
+            fill="none"
+            stroke="var(--color-ink-soft)"
+            strokeWidth="1.5"
+            transform="rotate(45 30 30)"
+          />
+        </svg>
       </div>
 
       <p className="text-base font-medium text-ink">正在生成你的关系说明书……</p>
 
-      <p key={`status-${statusIndex}`} className="text-sm text-ink-soft animate-[fadeIn_0.4s_ease-in-out]">
+      <p key={statusIndex} className="text-sm text-ink-soft animate-[fadeIn_0.4s_ease-in-out]">
         {STATUS_MESSAGES[statusIndex]}
       </p>
 
