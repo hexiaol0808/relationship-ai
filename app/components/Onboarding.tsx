@@ -2,14 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { MouseEvent, TouchEvent } from "react";
+import { useRouter } from "next/navigation";
 import OnboardingScreen from "./OnboardingScreen";
-
-interface OnboardingProps {
-  /** 点"跳过"时调用：只标记已看过，落地到简版开始页，不直接进问卷 */
-  onSkip: () => void;
-  /** 第三屏"开始探索"本身调用：标记已看过 + 直接进入问卷 */
-  onComplete: () => void;
-}
 
 const SCREENS = [
   {
@@ -38,7 +32,8 @@ const SCREENS = [
 
 const SWIPE_THRESHOLD = 60;
 
-export default function Onboarding({ onSkip, onComplete }: OnboardingProps) {
+export default function Onboarding() {
+  const router = useRouter();
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState<"forward" | "back">("forward");
   const touchStart = useRef<{ x: number; y: number } | null>(null);
@@ -51,9 +46,13 @@ export default function Onboarding({ onSkip, onComplete }: OnboardingProps) {
     };
   }, []);
 
+  function enterQuestionnaire() {
+    router.push("/questionnaire");
+  }
+
   function goNext() {
     if (index === SCREENS.length - 1) {
-      onComplete();
+      enterQuestionnaire();
       return;
     }
     setDirection("forward");
@@ -116,7 +115,7 @@ export default function Onboarding({ onSkip, onComplete }: OnboardingProps) {
           type="button"
           onClick={(e) => {
             e.stopPropagation();
-            onSkip();
+            enterQuestionnaire();
           }}
           className="absolute right-4 z-20 text-sm text-ink-soft"
           style={{ top: "max(1rem, env(safe-area-inset-top))" }}
