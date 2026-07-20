@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
 
 interface ButtonProps {
   children: ReactNode;
@@ -38,16 +38,23 @@ export default function Button({
   const widthClass = fullWidth ? "w-full" : "w-full max-w-[320px]";
   const classes = `${BASE_CLASS} ${VARIANT_CLASS[variant]} ${widthClass} ${className}`;
 
+  // 阻止冒泡：这个按钮很可能叠在某个"点击背景前进/切换"的容器上面（比如 onboarding 的右侧点击区），
+  // 点按钮本身不应该再触发外层容器自己的点击逻辑。
+  function handleClick(e: MouseEvent) {
+    e.stopPropagation();
+    onClick?.();
+  }
+
   if (href) {
     return (
-      <Link href={href} className={classes} {...rest}>
+      <Link href={href} className={classes} onClick={handleClick} {...rest}>
         {children}
       </Link>
     );
   }
 
   return (
-    <button type={type} onClick={onClick} disabled={disabled} className={classes} {...rest}>
+    <button type={type} onClick={handleClick} disabled={disabled} className={classes} {...rest}>
       {children}
     </button>
   );
